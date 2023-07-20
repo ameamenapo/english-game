@@ -9,53 +9,26 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 
-//public class Home extends JFrame implements ActionListener {
-public class Main extends JFrame {//①成功に戻すにはこっち採用
-	
+public class Main {
+	static MainWindow mainWindow;
 	CardLayout layout;
+	
+	MenuPanel menuPanel;
     
     public static void main(String[] args) {
-        Main frame = new Main();
-        frame.setTitle("English Game");
-        frame.setSize( 800, 620 );
-      //frame.setBounds(100, 100, 250, 300);//window(PC?)のどこにフレームを表示させるか細かく設定するにはこれっぽい。
-        frame.setLocationRelativeTo(null);//window(PC?)の中央にフレームを表示させる。
-        								  //frame.setLocationRelativeTo(null)はframe.setSize( 800, 620 );の下に書かないと反映されない
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
+    	mainWindow = new MainWindow(); //ウインドウのみを生成
+    	mainWindow.preparePanels(); //ペインに直接貼るパネルのみを生成
+		mainWindow.prepareComponents(); //その他のコンポーネントを生成
+		mainWindow.setVisible(true);  //最後にウィンドウを可視化
     }
 
     Main() {
 /////////////////ここからcard1(メニュー画面)/////////////////////////////////////////
-    	//パネル作成
-        JPanel card1 = new JPanel();
-        //コンポーネント(ボタンとか)作成
-        JButton fruitbtn = new JButton("くだもの");
-        fruitbtn.setPreferredSize(new Dimension(300, 100));//ボタンの大きさ。
-        //implements ActionListenerをつけた時に足した２行
-        //fruitbtn.addActionListener(this);
-        //fruitbtn.setActionCommand("くだもの");
-        
-        JButton colorbtn = new JButton("いろ");
-        colorbtn.setPreferredSize(new Dimension(300, 100));//ボタンの大きさ。
-        //colorbtn.addActionListener(this);
-        
-        JButton animalbtn = new JButton("どうぶつ");
-        animalbtn.setPreferredSize(new Dimension(300, 100));//ボタンの大きさ。
-        
-        //カードにコンポーネント追加
-    	card1.add(fruitbtn);
-    	card1.add(colorbtn);
-    	card1.add(animalbtn);
-    	//カードのデザイン
-    	card1.setBackground(new Color(255, 240, 245));
-	    card1.setPreferredSize(new Dimension(200, 100));//card1、つまりパネルの大きさを指定
-	    	    
+    	
 ////////////////////////////////ここからcard2/////////////////////////////////////////
 	    //パネル作成
 	    JPanel card2 = new JPanel();
@@ -134,13 +107,9 @@ public class Main extends JFrame {//①成功に戻すにはこっち採用
 	    card4.setBackground(new Color(255, 240, 245));
 	    
 	    
-	    
-
         layout = new CardLayout();
         Container contentPane = getContentPane();
-        
-        
-	    
+         
 	    setLayout(layout);
 	    contentPane.setLayout(layout);
        
@@ -150,7 +119,7 @@ public class Main extends JFrame {//①成功に戻すにはこっち採用
         contentPane.add(card4, "card4");
         
       //ボタンをクリックしたらshowメソッドの第二引数のcard2とかが表示される
-	    fruitbtn.addMouseListener(new MouseAdapter() {
+        fruitbtn.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 layout.show(getContentPane(), "card2");

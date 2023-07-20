@@ -18,15 +18,6 @@ import javax.swing.JPanel;
 public class Main extends JFrame {//①成功に戻すにはこっち採用
 	
 	CardLayout layout;
-	
-	/*JPanel card1;
-	JPanel card2;
-	JPanel card3;
-	JPanel card4;
-   
-    JButton fruitbtn;
-    JButton colorbtn;
-    JButton animalbtn;*/
     
     public static void main(String[] args) {
         Main frame = new Main();

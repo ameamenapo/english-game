@@ -49,6 +49,8 @@ public class FruitsPanel extends JPanel {
 		    this.add(fruitQuestion);
 		    this.add(fruitOptionLeft);
 		    this.add(fruitOptionRight);
+		    
+		    
 	
 		}	
 

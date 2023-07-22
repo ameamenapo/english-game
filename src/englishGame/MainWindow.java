@@ -18,8 +18,10 @@ public class MainWindow extends JFrame {
 	//レイアウト（紙芝居のような設定用）
 	CardLayout layout = new CardLayout();
 	//コンポーネント
-	MenuPanel menuPanel;
+	MenuPanel menuPanel = new MenuPanel();
 	FruitsPanel fruitsPanel;
+	ColorPanel colorPanel;
+	AnimalPanel animalPanel;
 	
 	
 	//コンストラクタ
@@ -38,46 +40,55 @@ public class MainWindow extends JFrame {
 		//コンストラクタが呼ばれた後メインメソッドから最初に手動で呼び出す
 		public void preparePanels() {
 			//パネルの準備
-			menuPanel = new MenuPanel();
+			//menuPanel = new MenuPanel();
 			this.add(menuPanel, "メニュー画面");
 			fruitsPanel = new FruitsPanel();
 			this.add(fruitsPanel, "フルーツ画面");
+			colorPanel = new ColorPanel();
+			this.add(colorPanel, "カラー画面");
+			animalPanel = new AnimalPanel();
+			this.add(animalPanel, "アニマル画面");
 			
 			this.pack();
+			
+			Container contentPane = getContentPane();
+		       
+	        contentPane.add(menuPanel, "メニュー画面");//第二引数はcard1じゃなくてもいいっぽい？
+	        contentPane.add(fruitsPanel, "フルーツ画面");
+	        contentPane.add(colorPanel, "カラー画面");
+	        contentPane.add(animalPanel, "アニマル画面");   
+	     
 		}
-		
 		//preparePanels()が呼ばれた後メインメソッドからさらに手動で呼び出す
 		public void prepareComponents() {
-			menuPanel.prepareComponents();
 			fruitsPanel.prepareComponents();
-			
+			colorPanel.prepareComponents();
+			animalPanel.prepareComponents();
 		}
 		
-        Container contentPane = getContentPane();
-       
-        contentPane.add(menuPanel, "card1");//第二引数はcard1じゃなくてもいいっぽい？
-        contentPane.add(fruitsPanel, "card2");
-        contentPane.add(card3, "card3");
-        contentPane.add(card4, "card4");
-    	//ボタンをクリックしたらshowメソッドの第二引数のcard2とかが表示される
-        fruitbtn.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                layout.show(getContentPane(), "card2");
-            }
-        });
-	    colorbtn.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                layout.show(getContentPane(), "card3");
-            }
-        });
-	    animalbtn.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                layout.show(getContentPane(), "card4");
-            }
-        });
+        
+		public void menuCommand() {
+			//ボタンをクリックしたらshowメソッドの第二引数のcard2とかが表示される
+			menuPanel.fruitbtn.addMouseListener(new MouseAdapter() {
+	            @Override
+	            public void mouseClicked(MouseEvent e) {
+	                layout.show(getContentPane(), "フルーツ画面");
+	            }
+	        });
+			menuPanel.colorbtn.addMouseListener(new MouseAdapter() {
+	            @Override
+	            public void mouseClicked(MouseEvent e) {
+	                layout.show(getContentPane(), "カラー画面");
+	            }
+	        });
+			menuPanel.animalbtn.addMouseListener(new MouseAdapter() {
+	            @Override
+	            public void mouseClicked(MouseEvent e) {
+	                layout.show(getContentPane(), "アニマル画面");
+	            }
+	        });
+		}
+    	
 
 		
 

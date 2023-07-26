@@ -14,15 +14,12 @@ import javax.swing.JPanel;
 public class CorrectPanel extends JPanel {
 	
 	public CorrectPanel(){
-	    
+		
 		 //パネル作成
 	    JPanel p1 = new JPanel();
 	    JPanel p2 = new JPanel();
-	    //Button b1 = new Button("B1");
-	    //Button b2 = new Button("B2");
-	    //Button b3 = new Button("B3");
-	    //Button b4 = new Button("B4");
-	    
+	    p1.setBackground(new Color(255, 240, 245));
+	    p2.setBackground(new Color(255, 240, 245));
 	    
 	    JLabel correctLabel = new JLabel();
 	    correctLabel.setText("アタリ！");
@@ -34,30 +31,52 @@ public class CorrectPanel extends JPanel {
 	    
 	    JButton nextBtn = new JButton("つぎのもんだい");
 	    nextBtn.setFont(new Font("Arial", Font.PLAIN, 24));
-	    nextBtn.setPreferredSize(new Dimension(300, 100));//ボタンの大きさ。
+	    nextBtn.setPreferredSize(new Dimension(300, 100));//ボタンの大きさ。聞いてない
+	    //nextBtn.setBorderPainted(false);//元々設定されてた色をオフ？
+	    //nextBtn.setBackground(null);//背景をデフォルトに？
+	    //nextBtn.setContentAreaFilled(false);
+	    nextBtn.setBackground(Color.BLUE);//ボタンの色。聞いてない
+	 
+	    
 	    
 	    ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("cat.png"));
 	    JLabel label5 = new JLabel(icon);
 	      
-	    p1.setBackground(new Color(255, 240, 245));
-	    p2.setBackground(new Color(255, 240, 245));
+	    //p1.setBackground(new Color(255, 240, 245));
+	    //p2.setBackground(new Color(255, 240, 245));
+	    
+	    
 	    
 	    setLayout(new GridLayout(2, 1));
         add(p1);
         add(p2);
         p1.setLayout(new GridLayout(1, 1));
         p2.setLayout(new GridLayout(1, 2));
-        //p1.add(b1);
+  
         
         p1.add(correctLabel);
         p2.add(nextBtn);
         p2.add(label5);
-        //p2.add(b4);
-        //setSize(300, 200);
         
-       
+     // 現在のLook&Feelの名前を表示する
+	    /*JLabel l1 = new JLabel(UIManager.getLookAndFeel().getName());
+	    p2.add(l1);*/
+
+	    // Look&FeelをMetalに変更する
+	    /*try {
+	    UIManager.setLookAndFeel(new MetalLookAndFeel());
+	    } catch (UnsupportedLookAndFeelException e) {
+	    e.printStackTrace();
+	    }
+	    SwingUtilities.updateComponentTreeUI(nextBtn);*/
+
+	    // 変更後のLook&Feelの名前を表示する
+	    /*JLabel l2 = new JLabel(UIManager.getLookAndFeel().getName());
+	    p2.add(l2);
+
+	    }*/
 	  
-        
-	  }
+	}
+	  
 
 }

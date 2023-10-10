@@ -15,14 +15,14 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 
-public class Test extends JFrame implements ActionListener {
+public class Menu extends JFrame implements ActionListener {
 
 	public static void main(String[] args) {
-		new Test();
+		new Menu();
 
 	}
 
-	public Test() {
+	public Menu() {
 		setTitle("EnglishGame");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -113,9 +113,14 @@ public class Test extends JFrame implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 
 		int command = Integer.parseInt(e.getActionCommand());
-		JPanel panel = new JPanel();
+		//menuPanelやquesutionPanelをさらにpanelの上に載せることで画面を切り替えられるようにする
+		JPanel panel = new JPanel();//各パーツを配置したパネルを貼るベースのパネル
+		JPanel menuPanel = new JPanel();;//メニュー画面のパーツを直接配置するパネル
+		JPanel quesutionPanel = new JPanel();;//問題画面のパーツを直接配置するパネル
+		JPanel nextPanel = new JPanel();
 		
 		JButton menubutton;
+		JButton nextbutton;
 		JButton fruitsbutton;
 		JButton animalbutton;
 		JButton colorbutton;
@@ -124,27 +129,21 @@ public class Test extends JFrame implements ActionListener {
 
 		switch (command) {
 		case 1:
-		// ボタンを直接貼るパネル
-		JPanel menuPanel = new JPanel();
-		// menuPanelを[GridBagLayout]として作成
+		// quesutionPanelを[GridBagLayout]として作成
 		GridBagLayout menuLayout = new GridBagLayout();
 		menuPanel.setLayout(menuLayout);
-		
-		//panel.add(new JLabel("メニューパネル"));
 		
 		fruitsbutton = new JButton("くだもの");
 		fruitsbutton.setPreferredSize(new Dimension(250, 100));
 		fruitsbutton.setFont(new Font("Arial", Font.PLAIN, 24));
 		fruitsbutton.setActionCommand("2");
 		fruitsbutton.addActionListener(this);
-		//panel.add(fruitsbutton);
 		
 		animalbutton = new JButton("どうぶつ");
 		animalbutton.setPreferredSize(new Dimension(250, 100));
 		animalbutton.setFont(new Font("Arial", Font.PLAIN, 24));
 		animalbutton.setActionCommand("3");
 		animalbutton.addActionListener(this);
-		//panel.add(animalbutton);
 		
 		colorbutton = new JButton("いろ");
 		colorbutton.setPreferredSize(new Dimension(250, 100));
@@ -201,15 +200,9 @@ public class Test extends JFrame implements ActionListener {
 		break;
 
 		case 2:
-		// ボタンを直接貼るパネル
-		JPanel fruitsPanel = new JPanel();
-		// fruitsPanelを[GridBagLayout]として作成
 		GridBagLayout fruitsLayout = new GridBagLayout();
-		fruitsPanel.setLayout(fruitsLayout);
+		quesutionPanel.setLayout(fruitsLayout);
 		
-		menubutton = new JButton("メニュー");
-		menubutton.setActionCommand("1");
-		menubutton.addActionListener(this);
 		JLabel question = new JLabel("えいごではなんていう？");
 		question.setFont(new Font("Arial", Font.PLAIN, 24));
 		JLabel word = new JLabel("りんご");
@@ -258,45 +251,46 @@ public class Test extends JFrame implements ActionListener {
 		gbc.ipady = 0;
 		fruitsLayout.setConstraints(ataributton, gbc);
 		
-		gbc.gridx = 1;
-		gbc.gridy = 3;
-		gbc.gridwidth = 1;
-		gbc.gridheight = 1;
-		gbc.ipady = 20;
-		gbc.insets = new Insets(100, 150, 15, 0);
-		fruitsLayout.setConstraints(menubutton, gbc);
-		//fruitsPanelにかくパーツを登録
-		fruitsPanel.add(menubutton);
-		fruitsPanel.add(question);
-		fruitsPanel.add(word);
-		fruitsPanel.add(hazurebutton);
-		fruitsPanel.add(ataributton);
+		//quesutionPanelにかくパーツを登録
+		quesutionPanel.add(question);
+		quesutionPanel.add(word);
+		quesutionPanel.add(hazurebutton);
+		quesutionPanel.add(ataributton);
 		
 		// ベースのパネルの設定
 		// レイアウトをBorderLayoutに
 		panel.setLayout(new BorderLayout());
 		// ベースのパネルに各パーツが乗ったkeyPanelをのせる
-		panel.add(fruitsPanel, BorderLayout.CENTER);
+		panel.add(quesutionPanel, BorderLayout.CENTER);
 		//パネルの一番上に問題のタイトルみたいなの(Fruits Question)書いとく
 		JLabel toptitle = new JLabel("Fruits Question");
 		toptitle.setHorizontalAlignment(JLabel.CENTER);
 		toptitle.setFont(new Font("Arial", Font.PLAIN, 20));
 		panel.add(toptitle, BorderLayout.NORTH);
+		//パネルの一番下にmenuとnextボタン
 		
+		
+		menubutton = new JButton("Menu");
+		menubutton.setActionCommand("1");
+		menubutton.addActionListener(this);
+		menubutton.setHorizontalAlignment(JLabel.CENTER);
+		menubutton.setFont(new Font("Arial", Font.PLAIN, 20));
+		menubutton.setMargin(new Insets(10, 0, 10, 0));
+		nextPanel.add(menubutton);
+		nextbutton = new JButton("Next");
+		//nextbutton.setActionCommand("1");後で機能実装
+		//nextbutton.addActionListener(this);
+		nextbutton.setHorizontalAlignment(JLabel.CENTER);
+		nextbutton.setFont(new Font("Arial", Font.PLAIN, 20));
+		nextbutton.setMargin(new Insets(10, 0, 10, 0));
+		nextPanel.add(nextbutton);
+		panel.add(nextPanel, BorderLayout.SOUTH);
 		break;
 		
 		case 3:
-			// ボタンを直接貼るパネル
-			JPanel animalPanel = new JPanel();
-			// fruitsPanelを[GridBagLayout]として作成
 			GridBagLayout animalLayout = new GridBagLayout();
-			animalPanel.setLayout(animalLayout);
+			quesutionPanel.setLayout(animalLayout);
 			
-			//animalPanel.add(new JLabel("動物パネル"), 0);
-			menubutton = new JButton("メニュー");
-			menubutton.setActionCommand("1");
-			menubutton.addActionListener(this);
-			//animalPanel.add(menubutton, 1);
 			JLabel ani_question = new JLabel("えいごではなんていう？");
 			ani_question.setFont(new Font("Arial", Font.PLAIN, 24));
 			JLabel ani_word = new JLabel("ねこ");
@@ -345,43 +339,43 @@ public class Test extends JFrame implements ActionListener {
 			ani_gbc.ipady = 0;
 			animalLayout.setConstraints(ataributton, ani_gbc);
 			
-			ani_gbc.gridx = 1;
-			ani_gbc.gridy = 3;
-			ani_gbc.gridwidth = 1;
-			ani_gbc.gridheight = 1;
-			ani_gbc.ipady = 20;
-			ani_gbc.insets = new Insets(100, 150, 15, 0);
-			animalLayout.setConstraints(menubutton, ani_gbc);
-			//fruitsPanelにかくパーツを登録
-			animalPanel.add(menubutton);
-			animalPanel.add(ani_question);
-			animalPanel.add(ani_word);
-			animalPanel.add(hazurebutton);
-			animalPanel.add(ataributton);
+			quesutionPanel.add(ani_question);
+			quesutionPanel.add(ani_word);
+			quesutionPanel.add(hazurebutton);
+			quesutionPanel.add(ataributton);
 			
 			// ベースのパネルの設定
 			// レイアウトをBorderLayoutに
 			panel.setLayout(new BorderLayout());
-			// ベースのパネルに各パーツが乗ったkeyPanelをのせる
-			panel.add(animalPanel, BorderLayout.CENTER);
+			// ベースのパネルに各パーツが乗ったquesutionPanelをのせる
+			panel.add(quesutionPanel, BorderLayout.CENTER);
 			//パネルの一番上に問題のタイトルみたいなの(Fruits Question)書いとく
 			JLabel ani_title = new JLabel("Animals Question");
 			ani_title.setHorizontalAlignment(JLabel.CENTER);
 			ani_title.setFont(new Font("Arial", Font.PLAIN, 20));
 			panel.add(ani_title, BorderLayout.NORTH);
+			menubutton = new JButton("Menu");
+			menubutton.setActionCommand("1");
+			menubutton.addActionListener(this);
+			menubutton.setHorizontalAlignment(JLabel.CENTER);
+			menubutton.setFont(new Font("Arial", Font.PLAIN, 20));
+			menubutton.setMargin(new Insets(10, 0, 10, 0));
+			nextPanel.add(menubutton);
+			nextbutton = new JButton("Next");
+			//nextbutton.setActionCommand("1");後で機能実装
+			//nextbutton.addActionListener(this);
+			nextbutton.setHorizontalAlignment(JLabel.CENTER);
+			nextbutton.setFont(new Font("Arial", Font.PLAIN, 20));
+			nextbutton.setMargin(new Insets(10, 0, 10, 0));
+			nextPanel.add(nextbutton);
+			panel.add(nextPanel, BorderLayout.SOUTH);
 
 			break;
 			
 		case 4:
-			// ボタンを直接貼るパネル
-			JPanel colorPanel = new JPanel();
-			// fruitsPanelを[GridBagLayout]として作成
 			GridBagLayout colorLayout = new GridBagLayout();
-			colorPanel.setLayout(colorLayout);
+			quesutionPanel.setLayout(colorLayout);
 			
-			menubutton = new JButton("メニュー");
-			menubutton.setActionCommand("1");
-			menubutton.addActionListener(this);
 			JLabel col_question = new JLabel("えいごではなんていう？");
 			col_question.setFont(new Font("Arial", Font.PLAIN, 24));
 			JLabel col_word = new JLabel("あか");
@@ -430,30 +424,38 @@ public class Test extends JFrame implements ActionListener {
 			col_gbc.ipady = 0;
 			colorLayout.setConstraints(ataributton, col_gbc);
 			
-			col_gbc.gridx = 1;
-			col_gbc.gridy = 3;
-			col_gbc.gridwidth = 1;
-			col_gbc.gridheight = 1;
-			col_gbc.ipady = 20;
-			col_gbc.insets = new Insets(100, 150, 15, 0);
-			colorLayout.setConstraints(menubutton, col_gbc);
-			//fruitsPanelにかくパーツを登録
-			colorPanel.add(menubutton);
-			colorPanel.add(col_question);
-			colorPanel.add(col_word);
-			colorPanel.add(hazurebutton);
-			colorPanel.add(ataributton);
+			//quesutionPanelにかくパーツを登録
+			quesutionPanel.add(col_question);
+			quesutionPanel.add(col_word);
+			quesutionPanel.add(hazurebutton);
+			quesutionPanel.add(ataributton);
 			
 			// ベースのパネルの設定
 			// レイアウトをBorderLayoutに
 			panel.setLayout(new BorderLayout());
-			// ベースのパネルに各パーツが乗ったkeyPanelをのせる
-			panel.add(colorPanel, BorderLayout.CENTER);
+			// ベースのパネルに各パーツが乗ったquesutionPanelをのせる
+			panel.add(quesutionPanel, BorderLayout.CENTER);
 			//パネルの一番上に問題のタイトルみたいなの(Fruits Question)書いとく
 			JLabel col_title = new JLabel("colors Question");
 			col_title.setHorizontalAlignment(JLabel.CENTER);
 			col_title.setFont(new Font("Arial", Font.PLAIN, 20));
 			panel.add(col_title, BorderLayout.NORTH);
+			//パネルの下のボタン
+			menubutton = new JButton("Menu");
+			menubutton.setActionCommand("1");
+			menubutton.addActionListener(this);
+			menubutton.setHorizontalAlignment(JLabel.CENTER);
+			menubutton.setFont(new Font("Arial", Font.PLAIN, 20));
+			menubutton.setMargin(new Insets(10, 0, 10, 0));
+			nextPanel.add(menubutton);
+			nextbutton = new JButton("Next");
+			//nextbutton.setActionCommand("1");後で機能実装
+			//nextbutton.addActionListener(this);
+			nextbutton.setHorizontalAlignment(JLabel.CENTER);
+			nextbutton.setFont(new Font("Arial", Font.PLAIN, 20));
+			nextbutton.setMargin(new Insets(10, 0, 10, 0));
+			nextPanel.add(nextbutton);
+			panel.add(nextPanel, BorderLayout.SOUTH);
 
 			break;			
 		
@@ -464,9 +466,6 @@ public class Test extends JFrame implements ActionListener {
 			GridBagLayout atariLayout = new GridBagLayout();
 			atariPanel.setLayout(atariLayout);
 			
-			menubutton = new JButton("メニュー");
-			menubutton.setActionCommand("1");
-			menubutton.addActionListener(this);
 			JLabel atari = new JLabel("あたり！");
 			atari.setFont(new Font("Arial", Font.PLAIN, 40));
 
@@ -480,15 +479,7 @@ public class Test extends JFrame implements ActionListener {
 			ata_gbc.ipady = 0;
 			atariLayout.setConstraints(atari, ata_gbc);			
 
-			ata_gbc.gridx = 1;
-			ata_gbc.gridy = 1;
-			ata_gbc.gridwidth = 1;
-			ata_gbc.gridheight = 1;
-			ata_gbc.ipady = 20;
-			ata_gbc.insets = new Insets(100, 150, 15, 0);
-			atariLayout.setConstraints(menubutton, ata_gbc);
-			//fruitsPanelにかくパーツを登録
-			atariPanel.add(menubutton);
+			//panelにかくパーツを登録
 			atariPanel.add(atari);
 			
 			// ベースのパネルの設定
@@ -500,7 +491,23 @@ public class Test extends JFrame implements ActionListener {
 			JLabel ata_title = new JLabel("correct");
 			ata_title.setHorizontalAlignment(JLabel.CENTER);
 			ata_title.setFont(new Font("Arial", Font.PLAIN, 20));
-			panel.add(ata_title, BorderLayout.NORTH);			
+			panel.add(ata_title, BorderLayout.NORTH);
+			//パネルの下のボタン
+			menubutton = new JButton("Menu");
+			menubutton.setActionCommand("1");
+			menubutton.addActionListener(this);
+			menubutton.setHorizontalAlignment(JLabel.CENTER);
+			menubutton.setFont(new Font("Arial", Font.PLAIN, 20));
+			menubutton.setMargin(new Insets(10, 0, 10, 0));
+			nextPanel.add(menubutton);
+			nextbutton = new JButton("Next");
+			//nextbutton.setActionCommand("1");後で機能実装
+			//nextbutton.addActionListener(this);
+			nextbutton.setHorizontalAlignment(JLabel.CENTER);
+			nextbutton.setFont(new Font("Arial", Font.PLAIN, 20));
+			nextbutton.setMargin(new Insets(10, 0, 10, 0));
+			nextPanel.add(nextbutton);
+			panel.add(nextPanel, BorderLayout.SOUTH);
 		
 			break;
 			
@@ -511,9 +518,6 @@ public class Test extends JFrame implements ActionListener {
 			GridBagLayout hazureLayout = new GridBagLayout();
 			hazurePanel.setLayout(hazureLayout);
 			
-			menubutton = new JButton("メニュー");
-			menubutton.setActionCommand("1");
-			menubutton.addActionListener(this);
 			JLabel hazure = new JLabel("ハズレ！");
 			hazure.setFont(new Font("Arial", Font.PLAIN, 40));
 
@@ -527,15 +531,7 @@ public class Test extends JFrame implements ActionListener {
 			haz_gbc.ipady = 0;
 			hazureLayout.setConstraints(hazure, haz_gbc);			
 
-			haz_gbc.gridx = 1;
-			haz_gbc.gridy = 1;
-			haz_gbc.gridwidth = 1;
-			haz_gbc.gridheight = 1;
-			haz_gbc.ipady = 20;
-			haz_gbc.insets = new Insets(100, 150, 15, 0);
-			hazureLayout.setConstraints(menubutton, haz_gbc);
-			//fruitsPanelにかくパーツを登録
-			hazurePanel.add(menubutton);
+			//panelにかくパーツを登録
 			hazurePanel.add(hazure);
 			
 			// ベースのパネルの設定
@@ -547,7 +543,23 @@ public class Test extends JFrame implements ActionListener {
 			JLabel haz_title = new JLabel("correct");
 			haz_title.setHorizontalAlignment(JLabel.CENTER);
 			haz_title.setFont(new Font("Arial", Font.PLAIN, 20));
-			panel.add(haz_title, BorderLayout.NORTH);			
+			panel.add(haz_title, BorderLayout.NORTH);
+			//パネルの下のボタン
+			menubutton = new JButton("Menu");
+			menubutton.setActionCommand("1");
+			menubutton.addActionListener(this);
+			menubutton.setHorizontalAlignment(JLabel.CENTER);
+			menubutton.setFont(new Font("Arial", Font.PLAIN, 20));
+			menubutton.setMargin(new Insets(10, 0, 10, 0));
+			nextPanel.add(menubutton);
+			nextbutton = new JButton("Next");
+			//nextbutton.setActionCommand("1");後で機能実装
+			//nextbutton.addActionListener(this);
+			nextbutton.setHorizontalAlignment(JLabel.CENTER);
+			nextbutton.setFont(new Font("Arial", Font.PLAIN, 20));
+			nextbutton.setMargin(new Insets(10, 0, 10, 0));
+			nextPanel.add(nextbutton);
+			panel.add(nextPanel, BorderLayout.SOUTH);
 		
 			break;			
 
